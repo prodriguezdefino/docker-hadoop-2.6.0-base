@@ -1,17 +1,17 @@
-# Base Ubuntu Precise 12.04 LTS image
+# Base Ubuntu Trusty 14.04 LTS image
 #
-FROM ubuntu:precise
+FROM ubuntu:14.04
 MAINTAINER prodriguezdefino prodriguezdefino@gmail.com
 
 # Setup a volume for data
 VOLUME ["/data"]
 
 # Set correct source list
-RUN echo "deb http://archive.ubuntu.com/ubuntu precise main universe" > /etc/apt/sources.list
-RUN echo "deb http://archive.ubuntu.com/ubuntu precise-updates main universe" >> /etc/apt/sources.list
+RUN echo "deb http://archive.ubuntu.com/ubuntu trusty main universe" > /etc/apt/sources.list
+RUN echo "deb http://archive.ubuntu.com/ubuntu trusty-updates main universe" >> /etc/apt/sources.list
 
 # add the python properties so we can add repos afterwards and also the utility to auto-accept licenses, some dev tools too
-RUN apt-get update && apt-get upgrade -y && apt-get install -y python-software-properties debconf-utils rsync openssh-server net-tools vim-tiny sudo iputils-ping python2.7 less curl
+RUN apt-get update && apt-get upgrade -y && apt-get install -y software-properties-common debconf-utils rsync openssh-server net-tools vim-tiny sudo iputils-ping python2.7 less curl
 
 # passwordless ssh
 RUN ssh-keygen -q -N "" -t rsa -f /root/.ssh/id_rsa
@@ -97,10 +97,10 @@ RUN echo "Port 2122" >> /etc/ssh/sshd_config
 RUN sed s/HOSTNAME/localhost/ /usr/local/hadoop/etc/hadoop/core-site.xml.template > /usr/local/hadoop/etc/hadoop/core-site.xml
 
 RUN service ssh start && $HADOOP_PREFIX/etc/hadoop/hadoop-env.sh && $HADOOP_PREFIX/sbin/start-dfs.sh && $HADOOP_PREFIX/bin/hdfs dfs -mkdir -p /user/root
-RUN start ssh && $HADOOP_PREFIX/etc/hadoop/hadoop-env.sh && $HADOOP_PREFIX/sbin/start-dfs.sh && $HADOOP_PREFIX/bin/hdfs dfs -put $HADOOP_PREFIX/etc/hadoop/ input
+RUN service ssh start && $HADOOP_PREFIX/etc/hadoop/hadoop-env.sh && $HADOOP_PREFIX/sbin/start-dfs.sh && $HADOOP_PREFIX/bin/hdfs dfs -put $HADOOP_PREFIX/etc/hadoop/ input
 
 # then revert the changes for better configuration reuse on other images
-RUN sed s/localhost/LOCALHOST/ /usr/local/hadoop/etc/hadoop/core-site.xml.template > /usr/local/hadoop/etc/hadoop/core-site.xml
+RUN sed s/localhost/HOSTNAME/ /usr/local/hadoop/etc/hadoop/core-site.xml > /usr/local/hadoop/etc/hadoop/core-site.xml
 
 ENV PATH $PATH:$HADOOP_PREFIX/bin
 
