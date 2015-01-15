@@ -27,7 +27,7 @@ RUN add-apt-repository ppa:webupd8team/java
 RUN apt-get update && apt-get upgrade -y && apt-get install -y oracle-java8-installer  
 
 # set java environment variables
-ENV JAVA_HOME=/usr/lib/jvm/java-8-oracle
+ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
 ENV PATH $PATH:$JAVA_HOME/bin
 
 # install Hadoop
