@@ -34,6 +34,7 @@ ENV PATH $PATH:$JAVA_HOME/bin
 RUN curl -s http://www.us.apache.org/dist/hadoop/common/hadoop-2.6.0/hadoop-2.6.0.tar.gz | tar -xz -C /usr/local/
 RUN cd /usr/local && ln -s ./hadoop-2.6.0 hadoop
 
+ENV HADOOP_HOME /usr/local/hadoop
 ENV HADOOP_PREFIX /usr/local/hadoop
 ENV HADOOP_COMMON_HOME /usr/local/hadoop
 ENV HADOOP_HDFS_HOME /usr/local/hadoop
