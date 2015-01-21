@@ -1,4 +1,4 @@
-# Base Ubuntu Trusty 14.04 LTS image
+## Apache Hadoop Base image
 #
 FROM ubuntu:14.04
 MAINTAINER prodriguezdefino prodriguezdefino@gmail.com
