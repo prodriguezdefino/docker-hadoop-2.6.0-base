@@ -81,6 +81,14 @@ RUN chown root:root /root/.ssh/config
 #
 # ADD supervisord.conf /etc/supervisord.conf
 
+ADD remote-add-slave.sh /etc/remote-add-slave.sh
+RUN chown root:root /etc/remote-add-slave.sh
+RUN chmod 700 /etc/remote-add-slave.sh
+
+ADD add-slave.sh /etc/add-slave.sh
+RUN chown root:root /etc/add-slave.sh
+RUN chmod 700 /etc/add-slave.sh
+
 ADD bootstrap.sh /etc/bootstrap.sh
 RUN chown root:root /etc/bootstrap.sh
 RUN chmod 700 /etc/bootstrap.sh
