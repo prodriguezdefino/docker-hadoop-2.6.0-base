@@ -81,17 +81,19 @@ RUN chown root:root /root/.ssh/config
 #
 # ADD supervisord.conf /etc/supervisord.conf
 
+# lets add some helpfull scripts to later add and remove nodes to/from the cluster
+ADD remote-remove-node.sh /etc/remote-remove-node.sh
+ADD remove-node.sh /etc/remove-node.sh
+ADD remote-remove-slave.sh /etc/remote-remove-slave.sh
+ADD remove-slave.sh /etc/remove-slave.sh
 ADD remote-add-slave.sh /etc/remote-add-slave.sh
-RUN chown root:root /etc/remote-add-slave.sh
-RUN chmod 700 /etc/remote-add-slave.sh
-
 ADD add-slave.sh /etc/add-slave.sh
-RUN chown root:root /etc/add-slave.sh
-RUN chmod 700 /etc/add-slave.sh
-
+ADD remote-add-node.sh /etc/remote-add-node.sh
+ADD add-node.sh /etc/add-node.sh
 ADD bootstrap.sh /etc/bootstrap.sh
-RUN chown root:root /etc/bootstrap.sh
-RUN chmod 700 /etc/bootstrap.sh
+
+# set the correct permissions to them
+RUN chown root:root /etc/remote-remove-node.sh && chmod 700 /etc/remote-remove-node.sh && chown root:root /etc/remove-node.sh && chmod 700 /etc/remove-node.sh && chown root:root /etc/remote-remove-slave.sh && chmod 700 /etc/remote-remove-slave.sh && chown root:root /etc/remove-slave.sh && chmod 700 /etc/remove-slave.sh && chown root:root /etc/remote-add-slave.sh && chmod 700 /etc/remote-add-slave.sh && chown root:root /etc/add-slave.sh && chmod 700 /etc/add-slave.sh && chown root:root /etc/remote-add-node.sh && chmod 700 /etc/remote-add-node.sh && chown root:root /etc/add-node.sh && chmod 700 /etc/add-node.sh && chown root:root /etc/bootstrap.sh && chmod 700 /etc/bootstrap.sh
 
 ENV BOOTSTRAP /etc/bootstrap.sh
 
