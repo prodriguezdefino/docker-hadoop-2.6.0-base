@@ -24,7 +24,7 @@ RUN /bin/echo -e oracle-java8-installer shared/accepted-oracle-license-v1-1 sele
 RUN add-apt-repository ppa:webupd8team/java
 
 # install Oracle JDK 8
-RUN apt-get update && apt-get upgrade -y && apt-get install -y oracle-java8-installer  
+RUN apt-get update && apt-get upgrade -y --force-yes && apt-get install -y --force-yes oracle-java8-installer  
 
 # set java environment variables
 ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
